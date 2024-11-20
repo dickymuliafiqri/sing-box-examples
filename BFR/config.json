@@ -44,7 +44,7 @@
       },
       {
         "tag": "direct-dns",
-        "address": "149.112.112.112",
+        "address": "1.1.1.1",
         "strategy": "ipv4_only",
         "detour": "direct"
       },
@@ -113,7 +113,8 @@
     ],
     "reverse_mapping": true,
     "strategy": "ipv4_only",
-    "independent_cache": true
+    "independent_cache": true,
+    "final": "direct-dns"
   },
   "inbounds": [
     {
@@ -395,7 +396,7 @@
     },
     "clash_api": {
       "external_controller": "0.0.0.0:9090",
-      "external_ui": "./dashboard"
+      "external_ui": "yacd"
     }
   }
 }
