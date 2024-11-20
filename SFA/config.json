@@ -10,7 +10,9 @@
     },
     "clash_api": {
       "external_controller": "0.0.0.0:9090",
-      "external_ui": "yacd"
+      "external_ui": "yacd",
+      "access_control_allow_origin": ["http://127.0.0.1", "http://yacd.haishan.me"],
+      "access_control_allow_private_network": true
     }
   },
   "dns": {
