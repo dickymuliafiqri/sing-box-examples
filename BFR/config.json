@@ -44,7 +44,7 @@
       },
       {
         "tag": "direct-dns",
-        "address": "1.1.1.1",
+        "address": "8.8.8.8",
         "strategy": "ipv4_only",
         "detour": "direct"
       },
