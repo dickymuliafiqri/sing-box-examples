@@ -32,23 +32,6 @@ dns:
     - 8.8.8.8
     - 1.1.1.1
 
-proxy-groups:
-  - name: Tunnel
-    type: select
-    proxies:
-      - Url Test
-      - Selector
-    url: "https://cp.cloudflare.com/generate_204"
-    interval: 300
-  - name: Url Test
-    type: url-test
-    url: "https://cp.cloudflare.com/generate_204"
-    interval: 300
-  - name: Selector
-    type: select
-    url: "https://cp.cloudflare.com/generate_204"
-    interval: 300
-
 rules:
   - AND,((NETWORK,UDP),(DST-PORT,123)),DIRECT
   - AND,((NETWORK,UDP),(OR,((DST-PORT,443),(GEOSITE,youtube)))),REJECT
