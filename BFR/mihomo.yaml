@@ -20,15 +20,13 @@ dns:
   enhanced-mode: redir-host
   listen: 0.0.0.0:7874
   nameserver:
-    - "https://185.222.222.222/dns-query"
-    - "https://45.11.45.11/dns-query"
+    - "https://8.8.8.8/dns-query"
+    - "https://8.8.4.4/dns-query"
   fallback:
     - "https://1.1.1.1/dns-query"
+    - 8.8.8.8
     - 1.1.1.1
-    - 8.8.4.4
   default-nameserver:
-    - 185.222.222.222
-    - 45.11.45.11
     - 8.8.8.8
     - 1.1.1.1
 
