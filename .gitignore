@@ -181,5 +181,5 @@ tmp
 *.sock
 scratch*.{js,ts,tsx,cjs,mjs}
 
-Resources/*/*.json
-Resources/*/*.db
+Resources/**/*
+!Resources/generate.ts
