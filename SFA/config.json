@@ -20,22 +20,19 @@
       {
         "type": "https",
         "tag": "Internet-dns",
-        "address": "https://8.8.8.8/dns-query",
-        "strategy": "ipv4_only",
+        "server": "https://9.9.9.9/dns-query",
         "detour": "Internet"
       },
       {
         "type": "https",
         "tag": "Best Latency-dns",
-        "address": "https://8.8.8.8/dns-query",
-        "strategy": "ipv4_only",
+        "server": "https://8.8.8.8/dns-query",
         "detour": "Best Latency"
       },
       {
         "type": "udp",
         "tag": "direct-dns",
-        "address": "8.8.8.8",
-        "strategy": "ipv4_only",
+        "server": "8.8.8.8",
         "detour": "direct"
       },
       {
