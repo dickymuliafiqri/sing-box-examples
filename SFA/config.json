@@ -100,16 +100,20 @@
     {
       "type": "selector",
       "tag": "Option ADs",
-      "outbounds": ["reject", "Internet"]
+      "outbounds": ["block", "Internet"]
     },
     {
       "type": "selector",
       "tag": "Option P0rn",
-      "outbounds": ["reject", "Internet"]
+      "outbounds": ["block", "Internet"]
     },
     {
       "type": "direct",
       "tag": "direct"
+    },
+    {
+      "type": "direct",
+      "tag": "block"
     }
   ],
   "route": {
@@ -120,6 +124,10 @@
       {
         "outbound": "dns",
         "port": [53]
+      },
+      {
+        "outbound": "block",
+        "action": "reject"
       },
       {
         "rule_set": ["geosite-rule-ads", "geosite-oisd-full"],
