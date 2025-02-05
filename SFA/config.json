@@ -105,50 +105,64 @@
     {
       "type": "selector",
       "tag": "Option ADs",
-      "outbounds": ["block", "Internet"]
+      "outbounds": ["reject", "Internet"]
     },
     {
       "type": "selector",
       "tag": "Option P0rn",
-      "outbounds": ["block", "Internet"]
+      "outbounds": ["reject", "Internet"]
     },
     {
       "type": "direct",
       "tag": "direct"
-    },
-    {
-      "type": "block",
-      "tag": "block"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
     }
   ],
   "route": {
     "auto_detect_interface": true,
     "override_android_vpn": true,
     "final": "Internet",
-    "geoip": {
-      "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geoip.db",
-      "download_detour": "direct"
-    },
-    "geosite": {
-      "download_url": "https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geosite.db",
-      "download_detour": "direct"
-    },
     "rules": [
       {
-        "outbound": "dns-out",
+        "outbound": "dns",
         "port": [53]
       },
       {
-        "geosite": ["rule-ads", "oisd-full"],
+        "rule_set": ["geosite-rule-ads", "geosite-oisd-full"],
         "outbound": "Option ADs"
       },
       {
-        "geosite": ["oisd-nsfw", "category-porn"],
+        "rule_set": ["geosite-oisd-nsfw", "geosite-category-porn"],
         "outbound": "Option P0rn"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "geosite-category-porn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/dickymuliafiqri/sing-box-examples/releases/download/latest/geosite-category-porn.srs",
+        "download_detour": "Internet"
+      },
+      {
+        "tag": "geosite-oisd-full",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/dickymuliafiqri/sing-box-examples/releases/download/latest/geosite-oisd-full.srs",
+        "download_detour": "Internet"
+      },
+      {
+        "tag": "geosite-oisd-nsfw",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/dickymuliafiqri/sing-box-examples/releases/download/latest/geosite-oisd-nsfw.srs",
+        "download_detour": "Internet"
+      },
+      {
+        "tag": "geosite-rule-ads",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/dickymuliafiqri/sing-box-examples/releases/download/latest/geosite-rule-ads.srs",
+        "download_detour": "Internet"
       }
     ]
   }
