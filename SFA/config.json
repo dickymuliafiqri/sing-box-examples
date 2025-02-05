@@ -47,11 +47,6 @@
         "rewrite_ttl": 20
       },
       {
-        "geosite": "rule-malicious",
-        "server": "block-dns",
-        "rewrite_ttl": 20
-      },
-      {
         "outbound": "Internet",
         "server": "Internet-dns",
         "rewrite_ttl": 20
