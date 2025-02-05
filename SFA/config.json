@@ -18,31 +18,26 @@
   "dns": {
     "servers": [
       {
-        "type": "https",
         "tag": "Internet-dns",
-        "server": "https://9.9.9.9/dns-query",
+        "address": "https://8.8.8.8/dns-query",
+        "strategy": "ipv4_only",
         "detour": "Internet"
       },
       {
-        "type": "https",
         "tag": "Best Latency-dns",
-        "server": "https://8.8.8.8/dns-query",
+        "address": "https://8.8.8.8/dns-query",
+        "strategy": "ipv4_only",
         "detour": "Best Latency"
       },
       {
-        "type": "udp",
         "tag": "direct-dns",
-        "server": "8.8.8.8",
+        "address": "8.8.8.8",
+        "strategy": "ipv4_only",
         "detour": "direct"
       },
       {
-        "type": "predefined",
         "tag": "block-dns",
-        "responses": [
-          {
-            "rcode": "NOERROR"
-          }
-        ]
+        "address": "rcode://success"
       }
     ],
     "rules": [
