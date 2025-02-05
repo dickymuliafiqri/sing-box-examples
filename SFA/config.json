@@ -18,26 +18,34 @@
   "dns": {
     "servers": [
       {
+        "type": "https",
         "tag": "Internet-dns",
-        "address": "https://8.8.8.8/dns-query",
-        "strategy": "ipv4_only",
-        "detour": "Internet"
+        "detour": "Internet",
+        "server": "8.8.8.8",
+        "server_port": 443
       },
       {
+        "type": "https",
         "tag": "Best Latency-dns",
-        "address": "https://8.8.8.8/dns-query",
-        "strategy": "ipv4_only",
-        "detour": "Best Latency"
+        "detour": "Best Latency",
+        "server": "8.8.8.8",
+        "server_port": 443
       },
       {
+        "type": "udp",
         "tag": "direct-dns",
-        "address": "8.8.8.8",
-        "strategy": "ipv4_only",
-        "detour": "direct"
+        "detour": "direct",
+        "server": "8.8.8.8",
+        "server_port": 53
       },
       {
+        "type": "predefined",
         "tag": "block-dns",
-        "address": "rcode://success"
+        "responses": [
+          {
+            "rcode": "NOERROR"
+          }
+        ]
       }
     ],
     "rules": [
@@ -122,6 +130,7 @@
     "final": "Internet",
     "rules": [
       {
+        "inbound": "tun-in",
         "action": "sniff"
       },
       {
@@ -136,10 +145,6 @@
           }
         ],
         "action": "hijack-dns"
-      },
-      {
-        "outbound": "block",
-        "action": "reject"
       },
       {
         "rule_set": ["geosite-rule-ads", "geosite-oisd-full"],
