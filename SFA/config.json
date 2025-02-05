@@ -122,8 +122,20 @@
     "final": "Internet",
     "rules": [
       {
-        "outbound": "dns",
-        "port": [53]
+        "action": "sniff"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "protocol": "dns"
+          },
+          {
+            "port": [53]
+          }
+        ],
+        "action": "hijack-dns"
       },
       {
         "outbound": "block",
