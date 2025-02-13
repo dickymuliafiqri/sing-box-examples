@@ -7,36 +7,32 @@
   "dns": {
     "servers": [
       {
+        "type": "https",
         "tag": "Internet-dns",
-        "address": "https://8.8.8.8/dns-query",
-        "strategy": "ipv4_only",
-        "detour": "Internet"
+        "detour": "Internet",
+        "server": "8.8.8.8",
+        "server_port": 443
       },
       {
-        "tag": "Best Latency-dns",
-        "address": "https://8.8.8.8/dns-query",
-        "strategy": "ipv4_only",
-        "detour": "Best Latency"
-      },
-      {
+        "type": "udp",
         "tag": "direct-dns",
-        "address": "8.8.8.8",
-        "strategy": "ipv4_only",
-        "detour": "direct"
+        "detour": "direct",
+        "server": "8.8.8.8",
+        "server_port": 53
       },
       {
+        "type": "predefined",
         "tag": "block-dns",
-        "address": "rcode://success"
+        "responses": [
+          {
+            "rcode": "NOERROR"
+          }
+        ]
       }
     ],
     "rules": [
       {
         "domain_suffix": [".arpa.", ".arpa"],
-        "server": "block-dns",
-        "rewrite_ttl": 20
-      },
-      {
-        "geosite": "rule-malicious",
         "server": "block-dns",
         "rewrite_ttl": 20
       },
@@ -47,7 +43,7 @@
       },
       {
         "outbound": "Best Latency",
-        "server": "Best Latency-dns",
+        "server": "Internet-dns",
         "rewrite_ttl": 20
       },
       {
@@ -102,39 +98,69 @@
       "tag": "direct"
     },
     {
-      "type": "block",
+      "type": "direct",
       "tag": "block"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
     }
   ],
   "route": {
-    "geoip": {
-      "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geoip.db",
-      "download_detour": "direct"
-    },
-    "geosite": {
-      "download_url": "https://github.com/malikshi/v2ray-rules-dat/releases/latest/download/geosite.db",
-      "download_detour": "direct"
-    },
+    "find_process": true,
+    "final": "Internet",
     "rules": [
       {
-        "port": 53,
-        "outbound": "dns-out"
+        "action": "sniff"
       },
       {
-        "geosite": ["rule-ads", "oisd-full"],
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "protocol": "dns"
+          },
+          {
+            "port": [53]
+          }
+        ],
+        "action": "hijack-dns"
+      },
+      {
+        "rule_set": ["geosite-rule-ads", "geosite-oisd-full"],
         "outbound": "Option ADs"
       },
       {
-        "geosite": ["oisd-nsfw", "category-porn"],
+        "rule_set": ["geosite-oisd-nsfw", "geosite-category-porn"],
         "outbound": "Option P0rn"
       }
     ],
-    "final": "Internet",
-    "find_process": true
+    "rule_set": [
+      {
+        "tag": "geosite-category-porn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/dickymuliafiqri/sing-box-examples/releases/download/latest/geosite-category-porn.srs",
+        "download_detour": "Internet"
+      },
+      {
+        "tag": "geosite-oisd-full",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/dickymuliafiqri/sing-box-examples/releases/download/latest/geosite-oisd-full.srs",
+        "download_detour": "Internet"
+      },
+      {
+        "tag": "geosite-oisd-nsfw",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/dickymuliafiqri/sing-box-examples/releases/download/latest/geosite-oisd-nsfw.srs",
+        "download_detour": "Internet"
+      },
+      {
+        "tag": "geosite-rule-ads",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/dickymuliafiqri/sing-box-examples/releases/download/latest/geosite-rule-ads.srs",
+        "download_detour": "Internet"
+      }
+    ]
   },
   "experimental": {
     "cache_file": {
