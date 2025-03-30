@@ -19,23 +19,9 @@
         "detour": "direct",
         "server": "8.8.8.8",
         "server_port": 53
-      },
-      {
-        "type": "predefined",
-        "tag": "block-dns",
-        "responses": [
-          {
-            "rcode": "NOERROR"
-          }
-        ]
       }
     ],
     "rules": [
-      {
-        "domain_suffix": [".arpa.", ".arpa"],
-        "server": "block-dns",
-        "rewrite_ttl": 20
-      },
       {
         "outbound": "Internet",
         "server": "Internet-dns",
@@ -48,11 +34,6 @@
       },
       {
         "outbound": "direct",
-        "server": "direct-dns",
-        "rewrite_ttl": 20
-      },
-      {
-        "outbound": "any",
         "server": "direct-dns",
         "rewrite_ttl": 20
       }
@@ -170,7 +151,7 @@
       "external_controller": "0.0.0.0:9090",
       "external_ui": "yacd",
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip",
-      "external_ui_download_detour": "direct"
+      "external_ui_download_detour": "Internet"
     }
   }
 }
